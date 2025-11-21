@@ -70,4 +70,4 @@ def main():
     from okta_mcp_server.tools.system_logs import system_logs  # noqa: F401
     from okta_mcp_server.tools.users import users  # noqa: F401
 
-    mcp.run()
+    mcp.run(transport="streamable-http")
