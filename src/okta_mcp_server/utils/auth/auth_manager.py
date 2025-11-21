@@ -137,11 +137,20 @@ class OktaAuthManager:
 
                 if access_token:
                     logger.info("Successfully obtained access token via browserless authentication")
-                    keyring.set_password(SERVICE_NAME, "api_token", access_token)
-                    self.token_timestamp = int(time.time())
+#                    keyring.set_password(SERVICE_NAME, "api_token", access_token)
+#                    self.token_timestamp = int(time.time())
 
                     # Note: Client credentials flow doesn't provide refresh tokens
-                    logger.debug("Note: Client credentials flow does not provide refresh tokens")
+#                    logger.debug("Note: Client credentials flow does not provide refresh tokens")
+
+                    self.api_token = access_token  # 새 필드 추가 (in-memory 저장)
+                        self.token_timestamp = int(time.time())
+
+                        try:
+                            keyring.set_password(SERVICE_NAME, "api_token", access_token)
+                        except keyring.backend.errors.KeyringError as e:
+                            logger.warning(f"Keyring not available, continuing without persisting token: {e}")
+
 
                     return access_token
 
