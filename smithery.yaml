@@ -1,3 +1,10 @@
 runtime: python
-target: remote
-entrypoint: okta-mcp-server
+target: local
+
+entrypoint:
+  command: uv
+  args:
+    - run
+    - --directory
+    - .
+    - okta-mcp-server
